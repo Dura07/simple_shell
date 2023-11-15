@@ -11,9 +11,12 @@
 
 #define MAX_COMMAND_LENGTH 100
 
+void initialize_environ(void);
+char **get_environ(void);
 void display_prompt(void);
 void execute_command(char *command);
 char *trim_spaces(char *str);
+void execute_child_process(char *command);
 
 extern char **environ;
 #endif /* SIMPLE_SHELL_H */

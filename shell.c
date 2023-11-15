@@ -2,25 +2,25 @@
 
 
 #define MAX_COMMAND_LENGTH 100
+
+static char **environ_ptr;
+
 /**
- * execute_child_process - Executes the command in the child process.
- * @command: The command to be executed.
+ * initialize_environ - Initializes the environ_ptr global variable.
  */
-static void execute_child_process(char *command)
+void initialize_environ(void)
 {
-	char *args[2];
-
-	args[0] = command;
-	args[1] = NULL;
-
-	if (execve(command, args, environ) == -1)
-	{
-		perror(command);
-		_exit(EXIT_FAILURE);
-	}
+	environ_ptr = environ;
 }
 
-
+/**
+ * get_environ - Retrieves the environ_ptr global variable.
+ * Return: The pointer to the environment.
+ */
+char **get_environ(void)
+{
+	return (environ_ptr);
+}
 
 /**
  * display_prompt - Display a simple shell prompt
