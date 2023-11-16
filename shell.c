@@ -53,7 +53,10 @@ void execute_command(char *command)
 		exit(EXIT_FAILURE);
 	}
 	else if (pid == 0)
+	{
 		execute_child_process(trimmed_command);
+		free(trimmed_command);
+	}
 
 	else
 	{
@@ -65,8 +68,8 @@ void execute_command(char *command)
 			exit(EXIT_FAILURE);
 		}
 	}
-	free(trimmed_command);
 }
+
 /**
  * trim_spaces - Removes leading and trailing spaces from a string.
  * @str: The input string to be trimmed.
@@ -82,9 +85,9 @@ char *trim_spaces(char *str)
 	char *trimmed = (char *)malloc(trimmed_len + 1);
 
 	if (!trimmed)
+
 	{
 		perror("Memory allocation failed");
-
 		exit(EXIT_FAILURE);
 	}
 

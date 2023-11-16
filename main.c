@@ -7,25 +7,36 @@
  * Return:success
  */
 int main(void)
+
 {
-	char command[MAX_COMMAND_LENGTH];
+	char input[MAX_COMMAND_LENGTH];
+
+	initialize_environ();
 
 	while (1)
+
 	{
 		display_prompt();
-		if (fgets(command, sizeof(command), stdin) == NULL)
+
+		if (fgets(input, MAX_COMMAND_LENGTH, stdin) == NULL)
 
 		{
-			if (isatty(STDIN_FILENO))
-			{
-				printf("\n");
-			}
+			perror("Error reading command");
+			exit(EXIT_FAILURE);
+		}
+
+
+		input[strcspn(input, "\n")] = '\0';
+
+		if (strcmp(input, "exit") == 0)
+
+		{
+			printf("Exiting shell.\n");
 			break;
 		}
 
-	command[strcspn(command, "\n")] = '\0';
-
-	execute_command(command);
+		execute_command(input);
 	}
+
 	return (0);
 }
