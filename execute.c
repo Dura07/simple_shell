@@ -8,23 +8,32 @@
 
 void execute_child_process(char *command)
 {
-char *args[2];
+	FILE *fp;
 
-args[0] = command;
-args[1] = NULL;
+	char output_line[MAX_COMMAND_LENGTH];
 
-if (execve(command, args, environ) == -1)
-{
-if (errno == ENOENT)
 
-{
-fprintf(stderr, "%s: command not found\n", command);
-_exit(EXIT_FAILURE);
-}
-else
-{
-perror(command);
-_exit(EXIT_FAILURE);
-}
-}
+	fp = popen(command, "r");
+	if (fp == NULL)
+	{
+		perror("Error opening pipe");
+		exit(EXIT_FAILURE);
+	}
+
+
+	while (fgets(output_line, MAX_COMMAND_LENGTH, fp) != NULL)
+
+	{
+		printf("%s", output_line);
+	}
+
+			if (pclose(fp) == -1)
+
+			{
+				perror("Error closing pipe");
+				exit(EXIT_FAILURE);
+
+			}
+
+			exit(EXIT_SUCCESS);
 }

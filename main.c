@@ -13,8 +13,8 @@ int main(void)
 	while (1)
 	{
 		display_prompt();
-
 		if (fgets(command, sizeof(command), stdin) == NULL)
+
 		{
 			if (isatty(STDIN_FILENO))
 			{
@@ -23,9 +23,9 @@ int main(void)
 			break;
 		}
 
-		command[strcspn(command, "\n")] = '\0';
+	command[strcspn(command, "\n")] = '\0';
 
-		execute_command(command);
+	execute_command(command);
 	}
 	return (0);
 }
