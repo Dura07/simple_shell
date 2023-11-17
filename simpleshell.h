@@ -17,6 +17,8 @@ void display_prompt(void);
 void execute_command(char *command);
 char *trim_spaces(char *str);
 void execute_child_process(char *command);
+void child_process(int pipe_fd[2], char *command);
+void parent_process(int pipe_fd[2]);
 
 extern char **environ;
 #endif /* SIMPLE_SHELL_H */
